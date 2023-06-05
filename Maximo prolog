@@ -51,3 +51,11 @@ proyeccion(Nota):-
 % 	nota(Nota), nota(N2), Nota<N2.
  
 % 
+nota_maxima_2(Nota):-
+    promedio(Nota),\+proyeccion(Nota).
+
+nota_no_maxima(Nota1):-
+    nota_maxima_2(Nota1), nota_maxima_2(N2), Nota1<N2.
+
+proyeccion2(Nota):-
+    nota_maxima_2(Nota),\+nota_no_maxima( Nota).
