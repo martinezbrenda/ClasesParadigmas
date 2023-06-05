@@ -1,0 +1,53 @@
+parcial1(juan,7).
+parcial1(thiago,10).
+parcial1(brenda, 1).
+parcial1(pepe, 10).
+
+parcial2(pepe, 40).
+parcial2(juan,8).
+parcial2(thiago,4).
+parcial2(brenda,8).
+
+promociona(X,N):-
+    parcial1(X,Y), 
+	parcial2(X,Z), Z>=7, Y>=7,
+    N is (Z+Y)/2.
+
+    
+desaprobado(Nombre):-
+    parcial1(Nombre,Y), 
+	parcial2(Nombre,Z),
+    (Y<4;Z<4).
+
+
+aprueba(Nombre):-
+    parcial1(Nombre,_), 
+	parcial2(Nombre,_), 
+    \+promociona(Nombre,_),\+desaprobado(Nombre).
+
+alumnos(Nombre,Prom):-
+	parcial1(Nombre,Nota1),
+	parcial2(Nombre,Nota2),
+	Prom is (Nota1+Nota2)/2.
+% mi conjunto
+promedio(Z):-
+    parcial1(Nombre, Nota1), parcial2(Nombre, Nota2),
+    Z is (Nota1 + Nota2)/2.
+    
+producto_cartesiano(X,Y):-
+    promedio(X), promedio(Y).
+    
+% seleccion (menos filas)
+seleccion_menor(X):-
+    producto_cartesiano(X,Y), X<Y.
+
+% proyeccion (menos columnas)
+proyeccion(Nota):-
+	promedio(Nota), \+seleccion_menor(Nota).
+
+
+
+% notas_minimas(Nota):-
+% 	nota(Nota), nota(N2), Nota<N2.
+ 
+% 
