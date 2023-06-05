@@ -59,3 +59,12 @@ nota_no_maxima(Nota1):-
 
 proyeccion2(Nota):-
     nota_maxima_2(Nota),\+nota_no_maxima( Nota).
+%recursividad
+multiplicar(_,Y, _):- Y<0, fail.
+multiplicar(_,0, 0).
+multiplicar(X,1, X).
+multiplicar(X,Y, R):- 
+    Y>1,
+    Y1 is Y-1,
+    multiplicar(X,Y1,R1),
+    R is R1+X.
