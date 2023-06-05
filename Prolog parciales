@@ -1,0 +1,25 @@
+parcial1(juan,7).
+parcial1(thiago,10).
+parcial1(brenda, 1).
+
+parcial2(juan,8).
+parcial2(thiago,4).
+parcial2(brenda,8).
+
+promociona(X,N):-
+    parcial1(X,Y), 
+	parcial2(X,Z), Z>=7, Y>=7,
+    N is (Z+Y)/2.
+
+    
+desaprobado(Nombre):-
+    parcial1(Nombre,Y), 
+	parcial2(Nombre,Z),
+    (Y<4;Z<4).
+
+aprueba(Nombre):-
+    parcial1(Nombre,_), 
+	parcial2(Nombre,_), 
+    \+promociona(Nombre,_),\+desaprobado(Nombre).
+
+
