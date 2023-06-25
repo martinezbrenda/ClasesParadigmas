@@ -1,0 +1,76 @@
+hombre(cacho).
+hombre(pancho).
+hombre(mauricio).
+hombre(gustavo).
+hombre(horacio).
+hombre(facundo).
+hombre(felipe).
+
+
+mujer(susi).
+mujer(ethel).
+mujer(griselda).
+mujer(sabrina).
+mujer(roxana).
+mujer(brenda).
+mujer(ariana).
+mujer(camila).
+mujer(agustina).
+mujer(julieta).
+mujer(valentina).
+
+
+padre(pancho,mauricio).
+padre(pancho,sabrina).
+padre(cacho,gustavo).
+padre(cacho,griselda).
+padre(mauricio, brenda).
+padre(mauricio, ariana).
+padre(gustavo,valentina).
+padre(gustavo,julieta).
+padre(gustavo,facundo).
+padre(horacio,camila).
+padre(horacio,agustina).
+
+
+madre(griselda,brenda).
+madre(griselda,ariana).
+madre(susi,griselda).
+madre(susi,gustavo).
+madre(ethel,sabrina).
+madre(ethel,mauricio).
+madre(roxana,valentina).
+madre(roxana,julieta).
+madre(roxana,facundo).
+madre(sabrina,camila).
+madre(sabrina,agustina).
+madre(julieta,felipe).
+
+
+hermano_hermana(X,Y):- % expresa que X es hermano o hermana de Y.
+    ((madre(_, X),madre(_, Y)) ; (padre(_, X),padre(_, Y))),
+    \+madre(Y,X), \+padre(Y,X),
+    X \= Y.
+
+hermano(X,Y):-% expresa que X es un hermano de Y.
+   ((madre(_, X),madre(_, Y)) ; (padre(_, X),padre(_, Y))),
+    \+madre(Y,X), \+padre(Y,X),\+madre(X,Y), \+padre(X,Y),
+    X \= Y, hombre(X).
+
+hermana(X,Y):-% expresa que X es un hermana de Y.
+   ((madre(_, X),madre(_, Y)) ; (padre(_, X),padre(_, Y))),
+   \+madre(Y,X), \+padre(Y,X),\+madre(X,Y), \+padre(X,Y),
+    X \= Y, mujer(X).
+
+hijo_hija(X,Y):- % expresa que X es hijo o hija de Y.
+        ((madre(Y, X)) ; (padre(Y, X))),
+     X \= Y.
+
+
+hijo(X,Y):- % expresa que X es hijo de Y.
+        ((madre(Y, X)) ; (padre(Y, X))),
+     X \= Y, hombre(X).
+
+hijo(X,Y):- % expresa que X es hija de Y.
+        ((madre(Y, X)) ; (padre(Y, X))),
+     X \= Y, mujer(X).
