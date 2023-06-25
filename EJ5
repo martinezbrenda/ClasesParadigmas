@@ -1,0 +1,75 @@
+%Se dispone de un listado con los resultados de los parciales de los alumnos del curso 
+%de Paradigmas de Programación, organizado de la siguiente manera:
+
+parcial1(ana,10).
+parcial1(juan,9).
+parcial1(julio, 2).
+parcial1(maria, 10).
+
+parcial2(ana,10).
+parcial2(juan,9).
+parcial2(julio, 4).
+parcial2(maria, 2).
+
+
+alumnos(X):-
+    parcial1(X,_), parcial2(X,_).
+
+promedio(X, Nota):-
+    parcial1(X,Np1) ,  parcial2(X,Np2),
+    Nota is (Np1+Np2)/2.
+
+promocionan(X):-
+    parcial1(X,Y) , parcial2(X,YY) , YY >= 7,Y >= 7.
+
+promocionan2(X):-
+   promedio(X,Y),
+    Y >= 7.
+
+promocionan_nota(Persona,Nota):-
+    promocionan(Persona),promedio(Persona, Nota).
+
+recursantes(X):-
+    parcial1(X,Y), 
+   parcial2(X,YY),  
+   (Y<4 ; YY<4).
+
+cursada(X):-
+	alumnos(X), \+promocionan(X), \+recursantes(X).
+
+producto_cartesiano(X,Y):-
+    promedio(_,X), promedio(_,Y).
+
+% seleccion (menos filas)
+seleccion_menores(X):-
+    producto_cartesiano(X,Y), X<Y.
+
+seleccion_mayores(X):-
+    producto_cartesiano(X,Y), X>Y.
+
+% proyeccion (menos columnas)
+proyeccion_mayores(Nombre,Nota):-
+	promedio(Nombre,Nota), \+seleccion_menores(Nota).
+
+proyeccion_menores(Nombre,Nota):-
+	promedio(Nombre,Nota), \+seleccion_mayores(Nota).
+
+mayor_promedio(Nombre,Nota):-
+    proyeccion_mayores(Nombre,Nota).
+
+menor_promedio(Nombre,Nota):-
+    proyeccion_menores(Nombre,Nota).
+
+notas_max_2da(Nombre,Nota):-
+   promedio(Nombre,Nota), \+mayor_promedio(Nombre, Nota).
+
+seleccion_notas_min_2da(Nombre,Nota):-
+  notas_max_2da(Nombre,Nota),
+  notas_max_2da(_,Nota2),
+  Nota<Nota2.
+  
+nota_max_2da(Nombre,Nota):-
+     notas_max_2da(Nombre, Nota), \+seleccion_notas_min_2da(Nombre,Nota).
+
+notas_maximas(Nombre1, N1, Nombre2, N2):-
+    nota_max(Nombre1, N1), nota_max_2da(Nombre2, N2).
