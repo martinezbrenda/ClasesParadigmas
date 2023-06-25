@@ -1,0 +1,32 @@
+entrada(paella).
+entrada(gazpacho).
+entrada(consomé).
+
+carne(filete_de_cerdo).
+carne(pollo_asado).
+
+pescado(trucha).
+pescado(bacalao).
+
+postre(flan).
+postre(helado).
+postre(pastel).
+
+
+
+menu(A,B,C):-
+    entrada(A),(carne(B);pescado(B)), postre(C).
+
+menu_con_consome(X,A,B):-
+    X = consomé,
+    menu(X,A,B).
+
+menu_con_consome2(A,B,C):-
+    menu(A,B,C), A==consomé.
+
+menu_con_consome3(B,C):-
+    menu(consomé,B,C).
+
+menu_sin(A,B,C,AA,BB,CC):-
+    menu(A,B,C),A\==AA, B\==BB, C\==CC.
+
