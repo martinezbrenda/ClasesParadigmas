@@ -1,0 +1,40 @@
+% Una agencia de viajes propone a sus clientes viajes de una o varias semanas a Roma, Londres o Túnez. 
+% El catálogo de la agencia contiene, para cada destino, el precio del transporte (con independencia 
+% de la duración) y el precio de una semana de estancia que varía según el destino y el nivel de 
+% comodidad elegidos: hotel, hostal o camping.
+
+%Expresar la relación viaje(C,S,H,P) que se interpreta por: "el viaje a la ciudad C durante S 
+%semanas con estancia en H cuesta P pesos"
+%Completar con viajeeconomico(C,S,H,P,Pmax) que expresa que el costo P es menor que Pmax pesos.
+
+
+transporte(roma,20).
+transporte(londres,30).
+transporte(tunez,10).
+
+alojamiento(roma,hotel,50).
+alojamiento(roma,hostal,30).
+alojamiento(roma,camping,10).
+alojamiento(londres,hotel,60).
+alojamiento(londres,hostal,40).
+alojamiento(londres,camping,20).
+alojamiento(tunez,hotel,40).
+alojamiento(tunez,hostal,20).
+alojamiento(tunez,camping,5).
+
+precio_transporte(C, Precio):-
+   transporte(C,Precio).
+
+precio_alojamiento(Lugar, Tipo, Precio):-
+    alojamiento(Lugar,Tipo,Precio).
+
+
+precio_semanas(N, Lugar, Tipo, Preciototal) :-
+    precio_alojamiento(Lugar, Tipo, PrecioDia), %tengo que almacenarlo en una variable local primero
+    Preciototal is N * PrecioDia.
+
+viaje(N, Lugar, Tipo, Preciototal):-
+    precio_semanas(N, Lugar, Tipo, Preciototal).
+
+viajeeco(N, Lugar, Tipo, Preciototal, Pmax):-
+    viaje(N, Lugar, Tipo, Preciototal),  Preciototal=<Pmax.
