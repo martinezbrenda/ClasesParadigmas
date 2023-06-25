@@ -1,0 +1,26 @@
+%Completar el programa "menú" de manera que una comida esté formada también 
+%por la elección de una bebida, a elegir entre vino, cerveza o agua mineral.
+
+entrada(paella).
+entrada(gazpacho).
+entrada(consomé).
+
+carne(filete_de_cerdo).
+carne(pollo_asado).
+
+pescado(trucha).
+pescado(bacalao).
+
+postre(flan).
+postre(helado).
+postre(pastel).
+
+bebida(vino).
+bebida(cerveza).
+bebida(agua).
+
+menu(A,B,C,D):-
+    entrada(A),(carne(B);pescado(B)), postre(C), (bebida(D);bebida(D);bebida(D)).
+
+menu_sin(A,B,C,D,AA,BB,CC,DD):-
+    menu(A,B,C,D), A\==AA,B\==BB, C\==CC,D\==DD.
